@@ -18,6 +18,26 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
+    surname: {
+      type: String,
+      required: [true, "Surname is required."]
+    },
+    commercename: {
+      type: String,
+      require: true
+    },
+    role: {
+      enum:["Artisan", "Commerce", "Admin"]
+    },
+    cif: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    avatar: String,
+    aboutme: String,
+    location: String,
+    posts:[ {type: Schema.Types.ObjectId, ref:"post" }]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
