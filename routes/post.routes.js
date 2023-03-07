@@ -13,7 +13,7 @@ router.get("/:postId", (req, res, next) => {
     res.json("get a post ID")
 });
 
-router.post("/:postId/edit", (req, res, next) =>{
+router.put("/:postId/edit", (req, res, next) =>{
     res.json("post a edit ")
 });
 
