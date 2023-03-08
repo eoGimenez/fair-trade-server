@@ -14,7 +14,7 @@ const postSchema = new Schema (
             type: String,
             required: true
         },
-        bach: {
+        batch: {
             type: Number,
             required: true
         },

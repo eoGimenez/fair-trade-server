@@ -27,8 +27,8 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["Artisan", "Commerce", "Admin"],
-      required: true
+      required: true,
+      enum:["Artisan", "Commerce", "Admin"]
     },
     cif: {
       type: String,
