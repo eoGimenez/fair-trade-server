@@ -23,9 +23,11 @@ const userSchema = new Schema(
     },
     commercename: {
       type: String,
-      required: true
+      required: true,
     },
     role: {
+      type: String,
+      required: true,
       enum:["Artisan", "Commerce", "Admin"]
     },
     cif: {
