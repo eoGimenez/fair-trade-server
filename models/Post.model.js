@@ -23,6 +23,7 @@ const postSchema = new Schema (
             required: true
         },
         category:{
+            type: String,
             enum: ["Natural Cosmetics", "Home Deco", "Misellaneous", "Fabric & Fashion" ],
             required: true
         },
