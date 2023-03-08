@@ -16,6 +16,9 @@ router.get("/:postId", (req, res, next) => {
 router.put("/:postId/edit", (req, res, next) =>{
     res.json("post a edit ")
 });
+router.delete("/:postId/delete", (req, res, next) => {
+    res.json("delete post ok ")
+})
 
 
 module.exports = router;
