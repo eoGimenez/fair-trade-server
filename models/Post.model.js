@@ -29,7 +29,9 @@ const postSchema = new Schema (
         available: {
             type: Boolean,
             require: true
-        },
+        }
+    },
+        {
         timestamps: true,
     }
 );

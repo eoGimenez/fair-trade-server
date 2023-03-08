@@ -5,7 +5,7 @@ router.get("/:userId", (req, res, next) => {
   res.json("All good in here");
 });
 
-router.post("/:userId", (req, res, next) => {
+router.put("/:userId/edit", (req, res, next) => {
     res.json("All posted")
 });
 
