@@ -31,7 +31,7 @@ const userSchema = new Schema({
   surname: { type: String, required: true },
   email: { type: String, unique: true, required: true, trim: true, },
   password: { type: String, required: true },
-  role: {enum:["Artisan", "Commerce", "Admin"]},
+  role: {enum:["Artisan", "Commerce", "Admin"], required: true},
   cif: {type: String, required: true, unique: true},
   avatar: String,
   aboutme: String,

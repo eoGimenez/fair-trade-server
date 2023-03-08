@@ -4,31 +4,31 @@ const postSchema = new Schema (
     {
         contract:{ 
             type: String,
-            require: true    
+            required: true    
         },
         image: {
             type: String,
-            require: true
+            required: true
         },
         description: {
             type: String,
-            require: true
+            required: true
         },
         bach: {
             type: Number,
-            require: true
+            required: true
         },
         price: {
             type: Number,
-            require: true
+            required: true
         },
         category:{
             enum: ["Natural Cosmetics", "Home Deco", "Misellaneous", "Fabric & Fashion" ],
-            require: true
+            required: true
         },
         available: {
             type: Boolean,
-            require: true
+            required: true
         }
     },
         {

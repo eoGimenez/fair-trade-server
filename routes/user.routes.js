@@ -8,7 +8,7 @@ router.get("/:userId", (req, res, next) => {
 router.put("/:userId/edit", (req, res, next) => {
     res.json("All posted")
 });
-router.delete("/:userId/edit", (req, res, next) => {
+router.delete("/:userId/delete", (req, res, next) => {
   res.json("delete user ok ")
 })
 

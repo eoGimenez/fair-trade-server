@@ -23,10 +23,12 @@ const userSchema = new Schema(
     },
     commercename: {
       type: String,
-      require: true
+      required: true,
     },
     role: {
-      enum:["Artisan", "Commerce", "Admin"]
+      type: String,
+      enum: ["Artisan", "Commerce", "Admin"],
+      required: true
     },
     cif: {
       type: String,
@@ -36,7 +38,7 @@ const userSchema = new Schema(
     avatar: String,
     aboutme: String,
     location: String,
-    posts:[ {type: Schema.Types.ObjectId, ref:"post" }]
+    posts:[ {type: Schema.Types.ObjectId, ref:"Post" }]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
