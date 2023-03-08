@@ -16,8 +16,8 @@ router.get("/:userId",isAuthenticated, (req, res, next) => {
 });
 
 router.put("/:userId/edit", isAuthenticated, (req, res, next) => {
-  const {userId} = req.params
-  const {email, password,name,surname,commercename,role,cif,avatar,aboutme,location} = req.body
+  const { userId } = req.params
+  const { email, password ,name ,surname ,commercename ,role ,cif ,avatar ,aboutme ,location } = req.body
 
   User.findByIdAndUpdate( userId, {email, password,name,surname,commercename,role,cif,avatar,aboutme,location} , {new:true})
   .then(result => {
@@ -27,7 +27,7 @@ router.put("/:userId/edit", isAuthenticated, (req, res, next) => {
 
 });
 router.delete("/:userId/delete", (req, res, next) => {
-  res.json("delete user ok ")
+  res.json( "delete user ok " )
 })
 
 module.exports = router;
