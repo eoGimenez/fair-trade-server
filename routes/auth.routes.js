@@ -46,6 +46,7 @@ router.post("/signup", (req, res, next) => {
       const { email, name, _id, surname, commercename, role, cif } = response;
       const user = { email, name, surname, commercename, role, cif, _id };
       res.status(201).json({ user: user });
+      console.log('USER:', user)
     })
     .catch((err) => next(err));
 });
