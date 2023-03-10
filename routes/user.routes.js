@@ -26,8 +26,13 @@ router.put("/:userId/edit", isAuthenticated, (req, res, next) => {
 .catch(err => next(err))
 
 });
-router.delete("/:userId/delete", (req, res, next) => {
-  res.json( "delete user ok " )
+router.delete("/:id/delete", (req, res, next) => {
+  const { userId } = req.params
+  User.findByIdAndDelete(userId)
+  .then((response)=> {
+    res.json({resultado: "ok"})
+  })
+.catch((err) => next(err))
 })
 
 module.exports = router;
