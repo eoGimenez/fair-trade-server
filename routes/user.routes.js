@@ -14,12 +14,12 @@ router.get("/all", /* isAuthenticated, */ (req, res, next) => {
   .catch(err=>next(err))
 })
 
-router.get("/:userId",/* isAuthenticated */ (req, res, next) => {
-  const {userId} = req.params;
+router.get("/:id",/* isAuthenticated */ (req, res, next) => {
+  const {id} = req.params;
 
   console.log("PARAMS-BACK", req.params)
   
-  User.findById(userId)
+  User.findById(id)
   /*  .populate("posts")  */
    .then(result=>{
     console.log('GET-userId-RESPONSE')
@@ -28,8 +28,8 @@ router.get("/:userId",/* isAuthenticated */ (req, res, next) => {
   .catch(err=>next(err))
 });
 
-router.put("/:userId/edit", isAuthenticated, (req, res, next) => {
-  const { userId } = req.params
+router.put("/:id/edit", isAuthenticated, (req, res, next) => {
+  const { id } = req.params
   const { email, password ,name ,surname ,commercename ,role ,cif ,avatar ,aboutme ,location } = req.body
 
   User.findByIdAndUpdate( userId, {email, password,name,surname,commercename,role,cif,avatar,aboutme,location} , {new:true})
@@ -40,9 +40,9 @@ router.put("/:userId/edit", isAuthenticated, (req, res, next) => {
 
 });
 
-router.delete("/:id/delete", (req, res, next) => {
-  const { userId } = req.params
-  User.findByIdAndDelete(userId)
+router.delete("/:id/", (req, res, next) => {
+  const { id } = req.params
+  User.findByIdAndDelete(id)
   .then((response)=> {
     res.json({resultado: "ok"})
   })
