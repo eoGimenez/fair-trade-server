@@ -3,8 +3,11 @@ const router = express.Router();
 const Post = require("../models/Post.model")
 
 router.get("/", (req, res, next) => {
-
-  res.json("All good in here2");
+    Post.find()
+    .then(results => {
+        res.json(results);
+    })
+    .catch(err => crossOriginIsolated.log(err))
   })
 
 
@@ -28,13 +31,13 @@ router.get("/:postId", (req, res, next) => {
     });
 
 router.put("/:postId/edit", (req, res, next) =>{
-    const {contract, image, description, batch, price, category, available} = req.body;
+    const {title, contract, image, description, batch, price, category, available} = req.body;
     const{postId} = req.params;
     console.log("POST", req.body)
-    Post.findByIdAndUpdate(postId, {contract, image, description, batch, price, category, available}, {new: true})
+    Post.findByIdAndUpdate(postId, {title, contract, image, description, batch, price, category, available}, {new: true})
     .then(result => {
         console.log("RESULT", result)
-        res.json("post a edit4 ")
+        res.json(result)
     })
     .catch(err => console.log(err))
 });
@@ -44,7 +47,7 @@ router.put("/:postId/edit", (req, res, next) =>{
     const {postId} = req.params;
     Post.findByIdAndDelete(postId)
     .then(result => {
-        res.json("delete a post4 ")
+        res.json("deleted")
     })
     .catch(err => console.log(err))
 })

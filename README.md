@@ -31,7 +31,7 @@ const userSchema = new Schema({
   surname: { type: String, required: true },
   email: { type: String, unique: true, required: true, trim: true, },
   password: { type: String, required: true },
-  role: {enum:["Artisan", "Commerce", "Admin"], required: true},
+  role: { type: String, enum:["Artisan", "Commerce", "Admin"], required: true},
   cif: {type: String, required: true, unique: true},
   avatar: String,
   aboutme: String,
@@ -39,15 +39,15 @@ const userSchema = new Schema({
   posts:[ {type: Schema.Types.ObjectId, ref:"post" }]
 });
 ```
-#### CodingProject.model.js
+#### Post.model.js
 ```js
 const postSchema = new Schema({
-        contract:{ type: String, require: true },
-        image:{ type: String, require: true },
-        description:{ type: String, require: true },
-        bach:{ type: String, require: true },
-        price:{ type: String, require: true },
-         category:{ enum: ["Natural Cosmetics", "Home Deco", "Misellaneous", "Fabric & Fashion" ],    require: true },
+        contract:{ type: String, required: true },
+        image:{ type: String, required: true },
+        description:{ type: String, required: true },
+        bach:{ type: String, required: true },
+        price:{ type: String, required: true },
+         category:{ enum: ["Natural Cosmetics", "Home Deco", "Miscellaneous", "Fabric & Fashion" ],    require: true },
         available:{ type: Boolean, require: true },
         });
 ```
