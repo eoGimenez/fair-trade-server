@@ -22,7 +22,7 @@ router.get("/:userId",/* isAuthenticated */ (req, res, next) => {
 
   console.log("PARAMS-BACK", req.params)
   
-  User.findById(id)
+  User.findById(userId)
     .populate("posts") 
    .then(result=>{
     console.log("result FINDBYID", result)
@@ -76,7 +76,7 @@ router.put("/:id/edit", /* isAuthenticated,  */(req, res, next) => {
 router.put("/:id/edit/commerce", /* isAuthenticated,  */(req, res, next) => {
   const { id } = req.params
   const { commercename, location , aboutme} = req.body
-  console.log("REQ>BODY.PUT", req.body)
+  //console.log("REQ>BODY.PUT", req.body)
 
   if (commercename === "" || location === ""  || aboutme === "" ) {
     res.status(400).json({ message: "Please, compleate the mandaroty field" });
@@ -88,7 +88,15 @@ router.put("/:id/edit/commerce", /* isAuthenticated,  */(req, res, next) => {
   res.json(result);
 })
 .catch(err => next(err))
+})
 
+router.put("/:userId/edit/chatsId", (req, res, next) => {
+  const {chatId}  = req.body
+  const { userId } = req.params;
+  console.log("CHATID BODY", req.body)
+  User.findByIdAndUpdate(userId, {$push: {chatsId: chatId}})
+  .then(result => res.json(result.data))
+  .catch(err => next(err))
 })
 
 router.delete("/:id/", (req, res, next) => {
