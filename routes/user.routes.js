@@ -4,7 +4,6 @@ const User = require('../models/User.model')
 const fileUploader = require("../config/cloudinary.config");
 const {isAuthenticated} = require('../middleware/jwt.middleware')
 
-<<<<<<< HEAD
 
 router.get("/all", /* isAuthenticated, */ (req, res, next) => {
   User.find()
@@ -16,38 +15,83 @@ router.get("/all", /* isAuthenticated, */ (req, res, next) => {
 })
 
 router.get("/:userId",/* isAuthenticated */ (req, res, next) => {
-=======
-router.get("/:userId",/* isAuthenticated, */ (req, res, next) => {
->>>>>>> 94559c4c28dafbefbf7b809d0c4693344c2999aa
   const {userId} = req.params;
 
   console.log("PARAMS-BACK", req.params)
   
-  User.findById(userId)
-  /*  .populate("posts")  */
+  User.findById(id)
+    .populate("posts") 
    .then(result=>{
-    console.log('GET-userId-RESPONSE')
+    console.log("result FINDBYID", result)
     res.json(result);
    })
   .catch(err=>next(err))
 });
 
-router.put("/:userId/edit", isAuthenticated, (req, res, next) => {
-  const { userId } = req.params
-  const { email, password ,name ,surname ,commercename ,role ,cif ,avatar ,aboutme ,location } = req.body
+router.put("/:id/edit", /* isAuthenticated,  */(req, res, next) => {
+  const { id } = req.params
+  const { email, password , passwordRe, name ,surname  ,cif ,avatar, } = req.body
+  console.log("REQ>BODY.PUT", req.body)
 
-  User.findByIdAndUpdate( userId, {email, password,name,surname,commercename,role,cif,avatar,aboutme,location} , {new:true})
+  if (email === "" || password === ""  || passwordRe === "" || name === "" || surname === ""   || cif === "") {
+    res.status(400).json({ message: "Please, compleate the mandaroty field" });
+    return;
+  }
+  console.log("comprobacion1")
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!emailRegex.test(email)) {
+    res.status(400).json({ message: "Provide a valid email address." });
+    return;
+  }
+  console.log("comprobacion2")
+
+  if (password !== undefined ) {const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  if (!passwordRegex.test(password)) {
+    res.status(400).json({
+      message:
+        "Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.",
+    });
+    return;
+  }
+
+  const salt = bcrypt.genSaltSync(saltRounds);
+       hashedPassword = bcrypt.hashSync(password, salt);
+}
+  console.log("comprobacion3")
+
+
+  User.findByIdAndUpdate( id, {email, password: hashedPassword ,name,surname,cif,avatar} , {new:true})
   .then(result => {
-    res.json(result);
+    console.log("RTA BASE DE DATO", result)
+  res.json(result);
 })
 .catch(err => next(err))
 
 });
 <<<<<<< HEAD
 
-router.delete("/:id/delete", (req, res, next) => {
-  const { userId } = req.params
-  User.findByIdAndDelete(userId)
+router.put("/:id/edit/commerce", /* isAuthenticated,  */(req, res, next) => {
+  const { id } = req.params
+  const { commercename, location , aboutme} = req.body
+  console.log("REQ>BODY.PUT", req.body)
+
+  if (commercename === "" || location === ""  || aboutme === "" ) {
+    res.status(400).json({ message: "Please, compleate the mandaroty field" });
+    return;
+  }
+  User.findByIdAndUpdate( id, {commercename, location , aboutme} , {new:true})
+  .then(result => {
+    console.log("RTA BASE DE DATO", result)
+  res.json(result);
+})
+.catch(err => next(err))
+
+})
+
+router.delete("/:id/", (req, res, next) => {
+  const { id } = req.params
+  User.findByIdAndDelete(id)
   .then((response)=> {
     res.json({resultado: "ok"})
   })

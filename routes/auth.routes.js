@@ -4,22 +4,29 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
 
+
+
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const saltRounds = 10;
 
 router.post("/signup", (req, res, next) => {
-  const { email, password, passwordRe, name, surname, commercename, role, cif  } = req.body;
+  const { email, password, passwordRe, name, surname, avatar,commercename, role, cif  } = req.body;
+  console.log("paso comprobaciones 1")
 
   if (email === "" || password === "" || name === "" || passwordRe === "" || surname === "" || commercename === "" || role === "" || cif === "") {
     res.status(400).json({ message: "Please, compleate the mandaroty field" });
     return;
   }
+  console.log("paso comprobaciones2")
+
+  console.log("REQ.BODY",req.body)
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   if (!emailRegex.test(email)) {
     res.status(400).json({ message: "Provide a valid email address." });
     return;
   }
+  console.log("paso comprobaciones3")
 
   const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!passwordRegex.test(password)) {
@@ -29,6 +36,8 @@ router.post("/signup", (req, res, next) => {
     });
     return;
   }
+
+  console.log("paso comprobaciones")
 
   User.findOne({ email })
     .then((result) => {
@@ -40,14 +49,16 @@ router.post("/signup", (req, res, next) => {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(password, salt);
 
-      return User.create({email, password: hashedPassword, name, surname, commercename, role, cif});
+       
+
+      return User.create({email, password: hashedPassword, name,avatar, surname, commercename, role, cif});
     })
     .then((response) => {
-      const { email, name, _id, surname, commercename, role, cif } = response;
-      const user = { email, name, surname, commercename, role, cif, _id };
-      //console.log("USER:", user)
+      const { email, name, _id,  surname,avatar, commercename, role, cif } = response;
+      const user = { email, name, surname, avatar, commercename, role, cif, _id };
+      console.log("USER:", user)
       res.status(201).json({ user: user });
-      console.log('USER:', user)
+      
     })
     .catch((err) => next(err));
 });
@@ -73,8 +84,8 @@ router.post("/login", (req, res, next) => {
         return;
       }
 
-        const { email, name, _id, surname, commercename, role, cif } = result;
-        const payload = { email, name, _id, surname, commercename, role, cif };
+        const { _id, email, commercename, role , name, surname, cif, avatar,aboutme, location } = result;
+        const payload = { _id, email, commercename, role ,name, surname, cif, avatar,aboutme, location };
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
           algorithm: "HS256",
           expiresIn: "6h",
