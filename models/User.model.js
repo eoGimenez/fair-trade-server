@@ -38,7 +38,8 @@ const userSchema = new Schema(
     avatar: String,
     aboutme: String,
     location: String,
-    posts:[ {type: Schema.Types.ObjectId, ref:"Post" }]
+    posts:[ {type: Schema.Types.ObjectId, ref:"Post" }],
+    chatsId: []
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
