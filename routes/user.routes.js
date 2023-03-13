@@ -3,6 +3,9 @@ const router = express.Router();
 const User = require('../models/User.model')
 const fileUploader = require("../config/cloudinary.config");
 const {isAuthenticated} = require('../middleware/jwt.middleware')
+const bcrypt = require ("bcrypt")
+const saltRounds = 10;
+let hashedPassword;
 
 router.get("/:userId",/* isAuthenticated, */ (req, res, next) => {
   const {userId} = req.params;
