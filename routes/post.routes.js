@@ -14,10 +14,25 @@ router.get("/", (req, res, next) => {
 
 
 
-router.post("/new", (req, res, next) => {
-    res.json("post a post xD")
-});
-
+  router.post("/new", (req, res, next) => {
+    const { title, contract, image, description, batch, price, category, available } =
+      req.body;
+    Post.create({
+      title,
+      contract,
+      image,
+      description,
+      batch,
+      price,
+      category,
+      available,
+    })
+      .then((result) => {
+        console.log("RESULT", result);
+        res.json(result);
+      })
+      .catch((err) => next(err));
+  });
 router.get("/:postId", (req, res, next) => {
     //const {contract, image, description, batch, price, category, available} = req.body;
     const {postId} = req.params;
