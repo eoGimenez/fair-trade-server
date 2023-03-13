@@ -12,9 +12,10 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/new", (req, res, next) => {
-  const { contract, image, description, batch, price, category, available } =
+  const { title, contract, image, description, batch, price, category, available } =
     req.body;
   Post.create({
+    title,
     contract,
     image,
     description,
