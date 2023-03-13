@@ -69,7 +69,6 @@ router.put("/:id/edit", /* isAuthenticated,  */(req, res, next) => {
 .catch(err => next(err))
 
 });
-<<<<<<< HEAD
 
 router.put("/:id/edit/commerce", /* isAuthenticated,  */(req, res, next) => {
   const { id } = req.params
@@ -98,15 +97,7 @@ router.delete("/:id/", (req, res, next) => {
     
 .catch((err) => next(err))
 })
-=======
-router.delete("/:id/delete", (req, res, next) => {
-  const { userId } = req.params
-  User.findByIdAndDelete(userId)
-  .then((response)=> {
-    res.json({resultado: "ok"})
-  })
-.catch((err) => next(err))
-})
+
 
 //CLOUDINARY!!!!!!!!!!!!!
 // POST "/api/upload" => Route that receives the image, sends it to Cloudinary via the fileUploader and returns the image URL
@@ -124,5 +115,4 @@ router.post("/upload", fileUploader.single("avatar"), (req, res, next) => {
 });
 
 
->>>>>>> 94559c4c28dafbefbf7b809d0c4693344c2999aa
 module.exports = router;
