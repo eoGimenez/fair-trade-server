@@ -34,7 +34,8 @@ const postSchema = new Schema (
         available: {
             type: Boolean,
             required: true
-        }
+        },
+        author:{type: Schema.Types.ObjectId, ref:"User"}
     },
         {
         timestamps: true,

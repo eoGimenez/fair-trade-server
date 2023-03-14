@@ -5,8 +5,9 @@ const User = require("../models/User.model")
 
 router.get("/", (req, res, next) => {
   Post.find()
+    .populate("author")
     .then((result) => {
-      //console.log("RESULT", result);
+      console.log("RESULT POPULADO", result);
       res.json(result);
     })
     .catch((err) => next(err));
@@ -14,6 +15,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/new", (req, res, next) => {
   const { title, contract, image, description, batch, price, category, available, author } = req.body;
+  console.log("AUTHOR DEL BACK",author)
   Post.create({
     title,
     contract,
@@ -23,6 +25,7 @@ router.post("/new", (req, res, next) => {
     price,
     category,
     available,
+    author
   })
     .then((result) => {
       return User.findByIdAndUpdate(author, {
@@ -37,9 +40,10 @@ router.get("/:postId", (req, res, next) => {
   const { postId } = req.params;
   //console.log({ postId });
   Post.findById(postId)
+    .populate("author")
     .then((result) => {
-     // console.log("RESULT", result);
-      res.json(result);
+     //console.log("RESULT", result);
+      res.json(data);
     })
     .catch((err) => next(err));
 });
