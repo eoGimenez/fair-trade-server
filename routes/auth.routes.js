@@ -10,7 +10,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const saltRounds = 10;
 
 router.post("/signup", (req, res, next) => {
-  const { email, password, passwordRe, name, surname, avatar,commercename, role, cif  } = req.body;
+  const { email, password, passwordRe, name, surname, avatar, commercename, role, cif  } = req.body;
   console.log("paso comprobaciones 1")
 
   if (email === "" || password === "" || name === "" || passwordRe === "" || surname === "" || commercename === "" || role === "" || cif === "") {

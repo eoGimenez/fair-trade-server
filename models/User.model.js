@@ -35,7 +35,10 @@ const userSchema = new Schema(
       required: true,
       unique: true
     },
-    avatar: String,
+    avatar: {
+      type: String,
+      default: "https://res.cloudinary.com/dlkwvyopo/image/upload/v1678786370/emptyavatar_a3p7ws.png"
+    },
     aboutme: String,
     location: String,
     posts:[ {type: Schema.Types.ObjectId, ref:"Post" }],
