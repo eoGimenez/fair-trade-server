@@ -36,7 +36,7 @@ const userSchema = new Schema(
       unique: true
     },
     avatar: {
-      type: String,
+      type:String,
       default: "https://res.cloudinary.com/dlkwvyopo/image/upload/v1678786370/emptyavatar_a3p7ws.png"
     },
     aboutme: String,
