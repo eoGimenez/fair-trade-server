@@ -93,12 +93,17 @@ router.put("/:id/edit/commerce", /* isAuthenticated,  */(req, res, next) => {
 router.put("/:userId/edit/chatsId", (req, res, next) => {
   const {chatId}  = req.body
   const { userId } = req.params;
-  //console.log("CHATID BODY", req.body)
-  User.findOne( {chatId} )
-  .then((result) => {
-    if(result) return 
-  })
-  User.findByIdAndUpdate(userId, {$push: {chatsId: chatId}})
+  const chatsId = chatId
+  User.findOne( {chatsId} )
+  /* ss.then((result) => {
+    console.log("ChatsID chatId: ", result)
+    if(result) {
+      res.json({message: "tested ok"})
+      return;
+    }
+  }) */
+  console.log("NO TIENE QUE LLEGAR ACA")
+  User.findByIdAndUpdate(userId, {$push: {chatsId}})
   .then(result => res.json(result.data))
   .catch(err => next(err))
 })
