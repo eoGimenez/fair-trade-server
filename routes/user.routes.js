@@ -93,7 +93,11 @@ router.put("/:id/edit/commerce", /* isAuthenticated,  */(req, res, next) => {
 router.put("/:userId/edit/chatsId", (req, res, next) => {
   const {chatId}  = req.body
   const { userId } = req.params;
-  console.log("CHATID BODY", req.body)
+  //console.log("CHATID BODY", req.body)
+  User.findOne( {chatId} )
+  .then((result) => {
+    if(result) return 
+  })
   User.findByIdAndUpdate(userId, {$push: {chatsId: chatId}})
   .then(result => res.json(result.data))
   .catch(err => next(err))
