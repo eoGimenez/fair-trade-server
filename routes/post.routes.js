@@ -16,7 +16,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/new", (req, res, next) => {
   const { title, contract, image, description, batch, price, category, available, author } = req.body;
-  /* console.log("AUTHOR DEL BACK",author) */
+  console.log(" BACK",req.body)
   Post.create({
     title,
     contract,
