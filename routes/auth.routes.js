@@ -10,7 +10,8 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const saltRounds = 10;
 
 router.post("/signup", (req, res, next) => {
-  const { email, password, passwordRe, name, surname, avatar, commercename, role, cif  } = req.body;
+  const { email, password, passwordRe, name, surname, /* avatar */ commercename, role, cif  } = req.body;
+  console.log("AVATAR-REQ.BODY", req.body.avatar)
   console.log("paso comprobaciones 1")
 
   if (email === "" || password === "" || name === "" || passwordRe === "" || surname === "" || commercename === "" || role === "" || cif === "") {
@@ -51,12 +52,12 @@ router.post("/signup", (req, res, next) => {
 
        
 
-      return User.create({email, password: hashedPassword, name,avatar, surname, commercename, role, cif});
+      return User.create({email, password: hashedPassword, name,/* avatar */ surname, commercename, role, cif});
     })
     .then((response) => {
-      const { email, name, _id,  surname,avatar, commercename, role, cif } = response;
-      const user = { email, name, surname, avatar, commercename, role, cif, _id };
-      console.log("USER:", user)
+      console.log("RESPONSE SING UP!!!!!!:", response)
+      const { email, name, _id,  surname,/* avatar,  */commercename, role, cif } = response;
+      const user = { email, name, surname, /* avatar, */ commercename, role, cif, _id };
       res.status(201).json({ user: user });
       
     })
@@ -84,8 +85,8 @@ router.post("/login", (req, res, next) => {
         return;
       }
 
-        const { _id, email, commercename, role , name, surname, cif, avatar,aboutme, location, chatsId } = result;
-        const payload = { _id, email, commercename, role ,name, surname, cif, avatar,aboutme, location, chatsId };
+        const { _id, email, commercename, role , name, surname, cif,  avatar, aboutme, location, chatsId } = result;
+        const payload = { _id, email, commercename, role ,name, surname, cif,  avatar, aboutme, location, chatsId };
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
           algorithm: "HS256",
           expiresIn: "6h",
