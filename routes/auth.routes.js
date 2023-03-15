@@ -10,7 +10,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const saltRounds = 10;
 
 router.post("/signup", (req, res, next) => {
-  const { name, surname, avatar, commercename, email, password, passwordRe,  role, cif } = req.body;
+  const { name, surname, commercename, email, password, passwordRe,  role, cif } = req.body;
 
   if (email === "" || password === "" || name === "" || passwordRe === "" || surname === "" || commercename === "" || role === "" || cif === "") {
     console.log("400 campos completos")
@@ -45,11 +45,11 @@ router.post("/signup", (req, res, next) => {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(password, salt);
 
-      return User.create({ email, password: hashedPassword, name, avatar, surname, commercename, role, cif });
+      return User.create({ email, password: hashedPassword, name, surname, commercename, role, cif });
     })
     .then((response) => {
-      const { email, name, _id, surname, avatar, commercename, role, cif } = response;
-      const user = { email, name, surname, avatar, commercename, role, cif, _id };
+      const { email, name, _id, surname,  commercename, role, cif } = response;
+      const user = { email, name, surname,  commercename, role, cif, _id };
       console.log("USER:", user)
       res.status(201).json({ user: user });
 
