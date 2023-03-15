@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post.model");
 const User = require("../models/User.model")
+const fileUploader = require("../config/cloudinary.config");
 
 router.get("/", (req, res, next) => {
   Post.find()
     .populate("author")
     .then((result) => {
-      console.log("RESULT POPULADO", result);
+     /*  console.log("RESULT POPULADO", result); */
       res.json(result);
     })
     .catch((err) => next(err));
@@ -15,7 +16,7 @@ router.get("/", (req, res, next) => {
 
 router.post("/new", (req, res, next) => {
   const { title, contract, image, description, batch, price, category, available, author } = req.body;
-  console.log("AUTHOR DEL BACK",author)
+  /* console.log("AUTHOR DEL BACK",author) */
   Post.create({
     title,
     contract,
@@ -51,10 +52,10 @@ router.get("/:postId", (req, res, next) => {
 router.put("/:postId/edit", (req, res, next) =>{
     const {title, contract, image, description, batch, price, category, available} = req.body;
     const{postId} = req.params;
-    //console.log("POST", req.body)
+    console.log("REQ.BODY-POST", req.body)
     Post.findByIdAndUpdate(postId, {title, contract, image, description, batch, price, category, available}, {new: true})
     .then(result => {
-       // console.log("RESULT", result)
+        console.log("RESULT", result)
         res.json(result)
     })
     .catch((err) => next(err));
@@ -67,6 +68,18 @@ router.delete("/:postId/delete", (req, res, next) => {
       res.json(result);
     })
     .catch((err) => next(err));
+});
+
+router.post("/upload", fileUploader.single("image"), (req, res, next) => {
+  if (!req.file) {
+    next(new Error("No file uploaded!"));
+    return;
+  }
+ 
+  // Get the URL of the uploaded file and send it as a response.
+  // 'fileUrl' can be any name, just make sure you remember to use the same when accessing it on the frontend
+  
+  res.json({ fileUrl: req.file.path });
 });
 
 module.exports = router;
