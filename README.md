@@ -4,7 +4,7 @@ Developed of our final proyect at IronHack. It's a MERN Stack application, check
 ## About
 We are Lucas, Lucia and Eugenio we met each other at the web development Bootcamp of IronHack. 
 
-![Project Image](# "Project Image")
+![Project Image](https://res.cloudinary.com/dxk04cijr/image/upload/v1678989961/localartco/navbarlogo_bjkqoq.png "Project Image")
 
 ## Deployment
 You can check the app fully deployed [here](#). If you wish to view the API deployment instead, check [here](#).
