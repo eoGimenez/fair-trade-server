@@ -9,7 +9,7 @@ We are Lucas, Lucia and Eugenio we met each other at the web development Bootcam
 ![Project Image](https://res.cloudinary.com/dxk04cijr/image/upload/v1678989961/localartco/navbarlogo_bjkqoq.png "Project Image")
 
 ## Deployment
-You can check the app fully deployed [here](#http://localartco.netlify.app). If you wish to view the API deployment instead, check [here](#).
+You can check the app fully deployed [here](#http://localartco.netlify.app). If you wish to view the API deployment instead, check [here](#fairtrade.fly.dev).
 
 ## Work structure
 We decide to use [Trello](https://trello.com/b/pWR9rkVU/app) to organize the workflow.
@@ -28,30 +28,33 @@ $ npm start
 #### User.model.js
 ```js
 const userSchema = new Schema({
+  email: { type: String, unique: true, required: true, trim: true, },
+  password: { type: String, required: true },
   commercename: { type: String, required: true },
   name: { type: String, required: true },
   surname: { type: String, required: true },
-  email: { type: String, unique: true, required: true, trim: true, },
-  password: { type: String, required: true },
   role: { type: String, enum:["Artisan", "Commerce", "Admin"], required: true},
   cif: {type: String, required: true, unique: true},
-  avatar: String,
+  avatar: {type:String, default:"https://res.cloudinary.com/dlkwvyopo/image/upload/v1678864779/emptyavatar_wnfas4.png"}
   aboutme: String,
   location: String,
   posts:[ {type: Schema.Types.ObjectId, ref:"post" }]
-});
+};
+timestamps: true,});
 ```
 #### Post.model.js
 ```js
 const postSchema = new Schema({
-        contract:{ type: String, required: true },
-        image:{ type: String, required: true },
-        description:{ type: String, required: true },
-        bach:{ type: String, required: true },
-        price:{ type: String, required: true },
-         category:{ enum: ["Natural Cosmetics", "Home Deco", "Miscellaneous", "Fabric & Fashion" ],    require: true },
-        available:{ type: Boolean, require: true },
-        });
+   title: { type: String, required: true},
+   contract:{ type: String,  enum:[" Total batch in concession", "Percentages to arrenge", "Would like to sale by unit" ], required: true },
+   image:{ type: String, required: true },
+   description:{ type: String, required: true },
+   bach:{ type: Number, required: true },
+   price:{ type: Number, required: true },
+   category:{ enum: ["Natural Cosmetics", "Home Deco", "Miscellaneous", "Fabric & Fashion" ],    require: true },
+   available:{ type: Boolean, require: true },
+   author:{type: Schema.Types.ObjectId, ref:"User"},
+   },{timestamps: true,});
 ```
 
 
@@ -59,8 +62,8 @@ const postSchema = new Schema({
 ## User roles
 | Role  | Capabilities                                                                                                                               | Property       |
 | :---: | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
-| Artisan  | Can login/logout. Can read all the projects. Can create a new post.                                                                       | role: Artisan |
-| Commerce | Can login/logout. Can read. Can read all user's post and contact them. | role: Commerce  |
+| Artisan  | Can login/logout, read all the projectsm, create and edit a new post, and delete a post.                                                | role: Artisan|
+| Commerce | Can login/logout. Can read. Can read all user's post and contact them.                                                                  | role: Commerce|
 
 ## API Reference
 | Method | Endpoint                    | Require                                             | Response (200)                                                        | Action                                                                    |
