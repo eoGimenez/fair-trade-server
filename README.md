@@ -35,7 +35,7 @@ const userSchema = new Schema({
   surname: { type: String, required: true },
   role: { type: String, enum:["Artisan", "Commerce", "Admin"], required: true},
   cif: {type: String, required: true, unique: true},
-  avatar: {type:String, default:"https://res.cloudinary.com/dlkwvyopo/image/upload/v1678864779/emptyavatar_wnfas4.png"}
+  avatar: {type:String, default:"https://res.cloudinary.com/dlkwvyopo/image/upload/v1678864779/emptyavatar_wnfas4.png"},
   aboutme: String,
   location: String,
   posts:[ {type: Schema.Types.ObjectId, ref:"post" }]
@@ -68,13 +68,15 @@ const postSchema = new Schema({
 ## API Reference
 | Method | Endpoint                    | Require                                             | Response (200)                                                        | Action                                                                    |
 | :----: | --------------------------- | --------------------------------------------------- |---------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| POST| /signup | const { username, email, password, role } = req.body | json({user: user}) | Registers the user in the database and returns the logged in user. |
-| POST | /login | const { commercename, password } = req.body | json({authToken: authToken}) | Log in an user already registered.|
-| GET| /verify | -| json ({profile}) | Navigate to user's profile|
-| GET| /:userId| const { userId } = req.params | json ({ json.response })| Return to user's profile|
-|PUT| /:userId/edit| const { userIs } = req.params| json ({ updatedProfile }) | Edits the User's profile|
-|GET| /posts| const {posts} | json ({ posts })| Return a post's list|
-|POST| /new| const {contract, description, image, bach, price, category, available} = req=body | json ({ post:post }) | Adds a new Post|
-|GET| /:postId| const { postId } = req.params | Navigate to the selected post|
-|PUT| /:postId/edit | const { postId, {post} } =req.params/req.body | Edits the selected post|
-|DELETE| /:postId/delete| const { postId } = req.params | Delete a post|
+| POST| /signup | const {name, surname, commercename, email, password, passwordRe,  role, cif } = req.body | json({user: user}) | Registers the user in the database.|
+| POST| /login | const {email, password  } = req.body | json({authToken: authToken}) | Log in an user already registered.|
+| GET| /verify | json (req.payload) |
+| GET| /all | User.Find() | json ({ json.response })|
+| GET| /:userId| const { userId } = req.params | User.FindById() | json ({ json.result})|
+| PUT| /:userId/edit| const { userIs } = req.params|{email,password,passwordRe,name,surname ,cif,avatar,} = req.body | User.FindByIdAndUpdate() | json ({ updatedProfile }) | Edits the User's profile|
+| PUT| /:userId/edit/comemrce| const { userIs } = req.params|{commercename,location,aboutme} = req.body | User.FindByIdAndUpdate() | json ({ updatedProfile }) | Edits the Commerce's profile|
+| GET| /posts| const {posts} | json ({ posts })| Return a post's list|
+| POST| /new| const {contract, description, image, bach, price, category, available} = req=body | json ({ post:post }) | Adds a new Post|
+| GET| /:postId| const { postId } = req.params | Navigate to the selected post|
+| PUT| /:postId/edit | const { postId, {post} } =req.params/req.body | Edits the selected post|
+| DELETE| /:postId/delete| const { postId } = req.params | Delete a post|
