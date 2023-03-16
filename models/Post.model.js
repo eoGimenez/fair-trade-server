@@ -8,6 +8,7 @@ const postSchema = new Schema (
         },
         contract:{ 
             type: String,
+            enum: [" Total batch in concession", "Percentages to arrenge", "Would like to sale by unit" ],
             required: true    
         },
         image: {
