@@ -4,7 +4,7 @@ const Post = require("../models/Post.model");
 const User = require("../models/User.model")
 const fileUploader = require("../config/cloudinary.config");
 const {isAuthenticated} = require('../middleware/jwt.middleware')
-const {isArtisan} = require('../middleware/isArtisan')
+const isArtisan = require('../middleware/isArtisan')
 
 router.get("/", isAuthenticated, (req, res, next) => {
   Post.find()
@@ -15,7 +15,7 @@ router.get("/", isAuthenticated, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.post("/new",isAuthenticated, isArtisan,(req, res, next) => {
+router.post("/new",  isAuthenticated,  isArtisan,   (req, res, next) => {
   const { title, contract, image, description, batch, price, category, available, author } = req.body;
   Post.create({
     title,
@@ -47,7 +47,7 @@ router.get("/:postId", isAuthenticated, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.put("/:postId/edit", isAuthenticated, isArtisan, (req, res, next) => {
+router.put("/:postId/edit",  isAuthenticated, isArtisan, (req, res, next) => {
   const { title, contract, image, description, batch, price, category, available } = req.body;
   const { postId } = req.params;
   Post.findByIdAndUpdate(postId, { title, contract, image, description, batch, price, category, available }, { new: true })
@@ -57,7 +57,7 @@ router.put("/:postId/edit", isAuthenticated, isArtisan, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.delete("/:postId/delete",isAuthenticated, isArtisan, (req, res, next) => {
+router.delete("/:postId/delete", isAuthenticated, isArtisan,  (req, res, next) => {
 
   const { postId } = req.params;
   Post.findById(postId)
@@ -75,7 +75,7 @@ router.delete("/:postId/delete",isAuthenticated, isArtisan, (req, res, next) => 
     .catch((err) => next(err));
 });
 
-router.post("/upload", fileUploader.single("image"),isAuthenticated, (req, res, next) => {
+router.post("/upload", fileUploader.single("image"), isAuthenticated,  (req, res, next) => {
   if (!req.file) {
     next(new Error("No file uploaded!"));
     return;

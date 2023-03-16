@@ -7,7 +7,7 @@ const User = require("../models/User.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const saltRounds = 10;
 
-router.post("/signup", isAuthenticated, (req, res, next) => {
+router.post("/signup", (req, res, next) => {
   const { name, surname, commercename, email, password, passwordRe,  role, cif } = req.body;
 
   if (email === "" || password === "" || name === "" || passwordRe === "" || surname === "" || commercename === "" || role === "" || cif === "") {
@@ -52,7 +52,7 @@ router.post("/signup", isAuthenticated, (req, res, next) => {
 });
 
 
-router.post("/login",isAuthenticated, (req, res, next) => {
+router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
 
   if (email === "" || password === "") {
