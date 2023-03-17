@@ -72,11 +72,12 @@ const postSchema = new Schema({
 | POST| /login | const {email, password  } = req.body | json({authToken: authToken}) | Log in an user already registered.|
 | GET| /verify | json (req.payload) |
 | GET| /all | User.Find() | json ({ json.response })|
-| GET| /:userId| const { userId } = req.params | User.FindById() | json ({ json.result})|
-| PUT| /:userId/edit| const { userIs } = req.params|{email,password,passwordRe,name,surname ,cif,avatar,} = req.body | User.FindByIdAndUpdate() | json ({ updatedProfile }) | Edits the User's profile|
-| PUT| /:userId/edit/comemrce| const { userIs } = req.params|{commercename,location,aboutme} = req.body | User.FindByIdAndUpdate() | json ({ updatedProfile }) | Edits the Commerce's profile|
+| GET| /:userId| const { userId } = req.params | json ({ json.result})| Returns one particular user
+| PUT| /:userId/edit| const { userIs } = req.params|{email,password,passwordRe,name,surname ,cif,avatar,} = req.body |  json ({ updatedProfile }) | Edits the User's profile|
+| PUT| /:userId/edit/comemrce| const { userIs } = req.params|{commercename,location,aboutme} = req.body  | json ({ updatedProfile }) | Edits the Commerce's profile|
 | GET| /posts| const {posts} | json ({ posts })| Return a post's list|
-| POST| /new| const {contract, description, image, bach, price, category, available} = req=body | json ({ post:post }) | Adds a new Post|
+| POST| /new| const { title,contract,image,description,batch,price,category,available,author } = req=body | json ({ post:post }) | Adds a new Post|
 | GET| /:postId| const { postId } = req.params | Navigate to the selected post|
-| PUT| /:postId/edit | const { postId, {post} } =req.params/req.body | Edits the selected post|
+| PUT| /:postId/edit | const { postId}=req.params const {title,contract,image,description,batch,price,category,available}req.body | Edits the selected post|
 | DELETE| /:postId/delete| const { postId } = req.params | Delete a post|
+| POST| /upload | "image" |req.file.path
