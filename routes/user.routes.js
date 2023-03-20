@@ -67,6 +67,7 @@ router.put("/:id/edit", /* isAuthenticated,  */(req, res, next) => {
   User.findByIdAndUpdate( id, {email, password: hashedPassword ,name,surname,cif,avatar} , {new:true})
   .then(result => {
     console.log("RTA BASE DE DATO", result)
+    result.save()
   res.json(result);
 })
 .catch(err => next(err))
