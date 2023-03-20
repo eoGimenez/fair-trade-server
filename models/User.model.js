@@ -37,7 +37,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type:String,
-      default: "https://res.cloudinary.com/dlkwvyopo/image/upload/v1678864779/emptyavatar_wnfas4.png"
+      default: "https://res.cloudinary.com/dxk04cijr/image/upload/v1678890705/localartco/l1qse90ogk7mey8svcfd.jpg"
     },
     aboutme: String,
     location: String,
