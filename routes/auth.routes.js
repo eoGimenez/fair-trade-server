@@ -84,8 +84,8 @@ router.post("/login", (req, res, next) => {
 });
 
 
-router.get("/verify", (req, res, next) => {
+router.get("/verify", isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
 });
-//testeando
+
 module.exports = router;
