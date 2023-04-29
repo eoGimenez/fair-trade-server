@@ -6,7 +6,7 @@ const User = require("../models/User.model");
 
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const saltRounds = 10;
-
+// hay que checkear que esta pasando con el signup, no hay respuesta del server
 router.post("/signup", (req, res, next) => {
   const { name, surname, commercename, email, password, passwordRe,  role, cif } = req.body;
 
