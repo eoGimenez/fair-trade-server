@@ -6,7 +6,7 @@ const fileUploader = require("../config/cloudinary.config");
 const {isAuthenticated} = require('../middleware/jwt.middleware')
 const isArtisan = require('../middleware/isArtisan')
 
-router.get("/", isAuthenticated, (req, res, next) => {
+router.get("/", (req, res, next) => {
   Post.find()
     .populate("author")
     .then((result) => {
